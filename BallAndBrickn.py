@@ -44,11 +44,17 @@ def animate():
 
     for ball in group_balls:
         ball.move()
-    first_board.move()
+
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT:
+            first_board.rect.left -= 10
+        elif event.key == pygame.K_RIGHT:
+            first_board.rect.left += 10
+
     for ball in group_balls:
         if pygame.sprite.spritecollide(ball, group_boards, False):
-            ball.speed[0] = -ball.speed[0]
-            #ball.speed[1] = -ball.speed[1]
+            #ball.speed[0] = -ball.speed[0]
+            ball.speed[1] = -ball.speed[1]
 
     for brick in group_bricks:
         for ball in group_balls:
@@ -65,7 +71,11 @@ def animate():
     pygame.display.flip()
     pygame.time.delay(7)
 
+pygame.init()
 
+delay = 100
+interval = 50
+pygame.key.set_repeat(delay, interval)
 
 size = width, height = 1280, 720
 screen = pygame.display.set_mode(size)
